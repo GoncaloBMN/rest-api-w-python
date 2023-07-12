@@ -1,0 +1,23 @@
+Docs:
+https://flask-sqlalchemy.palletsprojects.com/en/3.0.x/quickstart/
+https://stackoverflow.com/questions/31444036/runtimeerror-working-outside-of-application-context
+
+--- IF YOU WANT TO USE THE CLI TO TEST ---
+> Open a new terminal on the same directory
+> Type:
+    $ from application import app
+    $ from application import db
+    $ from application import Drink
+    $ db.init_app(app)
+    $ app.app_context().push # You need to do this to be able to use commands freely
+                             # Otherwise, you would need to open app.app_context() every time
+                             # you need to perform a command
+    # If you don't use the previous command, you can encapsulate the desire command like:
+        $ with app.app_context():
+            <my commands> # If you need to add, make sure you also commit in the same block
+    $ drink = Drink(name="Grape Soda", description="A grape soda that tastes like grapes")
+    $ db.session.add(drink)
+    $ db.session.commit()
+    $ Drink.query.all()
+
+--- OTHERWISE, JUST RUN THE PYTHON APP ---
